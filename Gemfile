@@ -70,3 +70,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "jsbundling-rails", "~> 1.1"
+gem 'rack-cors'
+gem 'devise'
+gem 'devise-jwt'
+gem 'fast_jsonapi'
