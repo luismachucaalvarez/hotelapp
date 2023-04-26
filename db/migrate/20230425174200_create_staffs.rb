@@ -6,10 +6,11 @@ class CreateStaffs < ActiveRecord::Migration[7.0]
       t.string :last_name, null: false
       t.date :birth_date, null: false
       t.string :address, null: true
-      t.references :city, null: false, foreign_key: true,
-      t.references :user, null: false, foreign_key: true,
+      t.references :city, null: false, foreign_key: true
+    
+      t.references :user, null: false, foreign_key: true
       t.references :staff_position, null: false, foreign_key: true
-      t.timestamps
+      #t.timestamps
     end
   end
 end
