@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_25_174200) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_25_220750) do
   create_table "cities", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "country_id", null: false
@@ -39,6 +39,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_174200) do
     t.text "name"
   end
 
+  create_table "reservations", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.datetime "check_in", null: false
+    t.datetime "check_out"
+    t.bigint "room_id", null: false
+    t.bigint "guest_id", null: false
+    t.bigint "staff_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guest_id"], name: "index_reservations_on_guest_id"
+    t.index ["room_id"], name: "index_reservations_on_room_id"
+    t.index ["staff_id"], name: "index_reservations_on_staff_id"
+  end
+
   create_table "room_types", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
     t.integer "max_people_quantity"
@@ -54,8 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_174200) do
 
   create_table "staff_positions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.text "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "staffs", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -89,6 +100,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_174200) do
   add_foreign_key "cities", "countries"
   add_foreign_key "guests", "cities"
   add_foreign_key "guests", "occupations"
+  add_foreign_key "reservations", "guests"
+  add_foreign_key "reservations", "rooms"
+  add_foreign_key "reservations", "staffs"
   add_foreign_key "rooms", "room_types"
   add_foreign_key "staffs", "cities"
   add_foreign_key "staffs", "staff_positions"
